@@ -42,18 +42,30 @@
   <!-- Page Content -->
   <div class="container">
     <div class="row">
-      <div class="col-lg-12 text-center">
-        <h1 class="mt-5">A Bootstrap 4 Starter Template</h1>
-        <p class="lead">Complete with pre-defined file paths and responsive navigation!</p>
-        <ul class="list-unstyled">
-          <li>Bootstrap 4.3.1</li>
-          <li>jQuery 3.4.1</li>
-        </ul>
-      </div>
+        <h1 class="mt-5">    Top {{ k }} most likely to derail conversations at {{ this_time }}:</h1>
     </div>
-  </div>
 
-  <!-- Bootstrap core JavaScript -->
+
+    <table>
+      {% for rank in ranks %}
+      <tr>
+        <td align="left">{{ rank[0] }}</td>
+        <td align="right"><a href="{{ rank[1] }}" target="_blank">{{ rank[2] }}</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+    
+    <h2 class="mt-5">Past Update Times: </h2>
+    <ul>
+      {% for time in times %}
+      <li><a href="/{{ time[0] }}">{{ time[1] }}</a></li>
+      {% endfor %}
+    </ul>
+
+  </div>
+    
+
+  <!-- Bootstrap core JavaScript
   <script src="{{ url_for('static',filename='startbootstrap-bare-gh-pages/vendor/jquery/jquery.slim.min.js') }}"></script>
   <script src="{{ url_for('static',filename='startbootstrap-bare-gh-pages/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
