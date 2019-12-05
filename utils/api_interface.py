@@ -16,7 +16,10 @@ def get_ranks_formatted(k, t):
     rank_json = get_ranks(k,t)
     this_time = format_time(rank_json['when'])
     # print(rank_json['ranking'][0][1].split('/'))
-    franks = list(map(lambda tup: # tup = (score, link)
+    if rank_json['ranking'] == None:
+        franks = []
+    else:
+        franks = list(map(lambda tup: # tup = (score, link)
                       (tup[0], tup[1], "/".join(tup[1].split("/")[-3:])),
                       rank_json['ranking'] ))
     return this_time, franks

@@ -7,7 +7,7 @@ routes = Blueprint('routes', __name__)
 @routes.route("/")
 def home():
     """
-    home
+    Display Rankings, and way to request rankings produced at other times. 
     """
     t=None
     try:
@@ -18,7 +18,7 @@ def home():
     k = data.k
     try:
         if 'k' in request.args:
-            k = request.args['k']
+            k = int(request.args['k'])
     except Exception as e:
         print(f'got exception <{e}> while parsing arg k')
 
@@ -34,4 +34,7 @@ def home():
 
 @routes.route("/about")
 def about():
+    """
+    The about this project page. 
+    """
     return render_template('about.html')
