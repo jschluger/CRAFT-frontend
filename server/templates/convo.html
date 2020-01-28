@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="background-color:#fc471e;">
+  <div class="row justify-content-center">
+    <h1 class="mt-5">CRAFT on <a class="text-dark" href="http://reddit.com/r/changemyview" target="_blank">reddit.com/r/changemyview</a></h1>
+  </div>
+</div>
+
+<div class="container" style="padding-top:10px">
+  <div class="row">
+    <div class="col-4">
+      <h4>Cornell CRAFT Derailment Model</h4>
+      <p> Read the paper of CRAFT <a href="https://arxiv.org/abs/1909.01362" target="_blank">here</a>. </p>
+      <h3>Navigation</h3>
+      <h4>Parent:</h4> <a href="{{ url_for('routes.convo', id=parent) }}">{{ parent }} </a>
+      <h4>Children:</h4>
+      <ul>
+	{% for child in children %}
+	<li><a href="{{ url_for('routes.convo', id=parent) }}">{{ child }}</a></li>
+	 {% endfor %}
+      </ul>
+    </div>
+    <div class="col">
+      <table class="table table-striped table-hover">
+	<h3>Convo {{ id }}</h3>
+	<tr>
+	  <th scope="col">Time</th>
+	  <th scope="col">Number of Comments</th>
+	  <th scope="col">Craft Score</th>
+	  <th scope="col">Prediction</th>
+	  <th scope="col">Link to End of Convo</th>
+	  <th scope="col">Link to Predicted Derailer</th>
+	</tr>
+	{% for rank in ranks %}
+	<tr>
+	      <th scope="row">{{ loop.index  }}</th>
+	      <td>{{ rank[0] | round(3) }}</td>
+	      <td><a href="{{ url_for('routes.convo', id=rank[1]) }}" style="stretched-link">{{ rank[1] }}</a></td>
+	      <td>n/a</td>
+	</tr>
+	{% endfor %}
+      </table>
+    </div>
+    
+  </div>
+</div>
+</div>
+
+
+{% endblock %}

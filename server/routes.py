@@ -14,13 +14,13 @@ def home():
         if 't' in request.args:
             t = int(request.args['t'])
     except Exception as e:
-        print(f'got exception <{e}> while parsing arg t')
+        print(f'got exception <{e}> while parsing arg t in /')
     k = data.k
     try:
         if 'k' in request.args:
             k = int(request.args['k'])
     except Exception as e:
-        print(f'got exception <{e}> while parsing arg k')
+        print(f'got exception <{e}> while parsing arg k in /')
 
     ftimes = api_interface.get_times_formatted()
     this_time, franks = api_interface.get_ranks_formatted(k, t)
@@ -30,6 +30,26 @@ def home():
                            ranks=franks,
                            this_time=this_time,
                            k=k)
+
+
+@routes.route("/convo")
+def convo():
+    """
+    Display convo
+    """
+    i=None
+    try:
+        if 'id' in request.args:
+            i = request.args['id']
+    except Exception as e:
+        print(f'got exception <{e}> while parsing arg id in /convo')
+
+    conv, parent, children = api_interface.get_convo_formatted(i)
+    return render_template('convo.html',
+                           convo=convo,
+                           parent=parent,
+                           children=children,
+                           id=i)
 
 
 @routes.route("/about")

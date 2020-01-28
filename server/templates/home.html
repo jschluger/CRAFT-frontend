@@ -41,7 +41,7 @@
       </form>
     </div>
     <div class="col">
-      <table class="table table-striped">
+      <table class="table table-striped table-hover">
 	<h3>
 	  Top {{ k }} most likely to derail conversations <br>
 	  at {{ this_time }}:
@@ -49,18 +49,20 @@
 	<tr>
 	  <th scope="col">Rank</th>
 	  <th scope="col">CRAFT Score</th>
-	  <th scope="col">Link</th>
+	  <th scope="col">Identifier</th>
+	  <th scope="col">&Delta;</th>
 	</tr>
 	{% for rank in ranks %}
 	<tr>
-	  <th scope="row">{{ loop.index  }}</th>
-	  <td>{{ rank[0] }}</td>
-	  <td><a href="{{ rank[1] }}" target="_blank">{{ rank[2] }}</a></td>
+	      <th scope="row">{{ loop.index  }}</th>
+	      <td>{{ rank[0] | round(3) }}</td>
+	      <td><a href="{{ url_for('routes.convo', id=rank[1]) }}" style="stretched-link">{{ rank[1] }}</a></td>
+	      <td>n/a</td>
 	</tr>
 	{% endfor %}
       </table>
     </div>
-        
+    
   </div>
 </div>
 </div>
