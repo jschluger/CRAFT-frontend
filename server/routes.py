@@ -37,16 +37,18 @@ def convo():
     """
     Display convo
     """
+    # print('requesting /convo')
     i=None
     try:
         if 'id' in request.args:
             i = request.args['id']
     except Exception as e:
         print(f'got exception <{e}> while parsing arg id in /convo')
-
+    # print(f'\twith id={i}')
+        
     conv, parent, children = api_interface.get_convo_formatted(i)
     return render_template('convo.html',
-                           convo=convo,
+                           convo=conv,
                            parent=parent,
                            children=children,
                            id=i)

@@ -37,7 +37,9 @@ def get_times_formatted():
 
 def get_convo(i):
     args = {'id': i}
+    print(f'making backend request for convo {i}')
     r = requests.post(data.BACKEND+'/viewconvo', data=args)
+    print('recieved response')
     return r.json()
     
 def get_convo_formatted(i):
@@ -45,4 +47,4 @@ def get_convo_formatted(i):
     c = get_convo(i)
     print(f'get convo {i} returned')
     pprint(c)
-    return c['data'], c['parent'], c['children']
+    return c['convo'], c['parent'], c['children']

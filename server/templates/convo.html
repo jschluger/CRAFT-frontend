@@ -16,7 +16,7 @@
       <h4>Children:</h4>
       <ul>
 	{% for child in children %}
-	<li><a href="{{ url_for('routes.convo', id=parent) }}">{{ child }}</a></li>
+	<li><a href="{{ url_for('routes.convo', id=child) }}">{{ child }}</a></li>
 	 {% endfor %}
       </ul>
     </div>
@@ -31,12 +31,14 @@
 	  <th scope="col">Link to End of Convo</th>
 	  <th scope="col">Link to Predicted Derailer</th>
 	</tr>
-	{% for rank in ranks %}
+	{% for comment in convo %}
 	<tr>
-	      <th scope="row">{{ loop.index  }}</th>
-	      <td>{{ rank[0] | round(3) }}</td>
-	      <td><a href="{{ url_for('routes.convo', id=rank[1]) }}" style="stretched-link">{{ rank[1] }}</a></td>
-	      <td>n/a</td>
+	  <td>{{comment[1]}}</td>
+	  <td>{{ loop.index  }}</th>
+	  <td>{{ comment[2] | round(3) }}</td>
+	  <td>n/a</td>
+	  <td><a href="http://reddit.com{{comment[4]}}" target="_blank">{{comment[0]}}</a></td>
+	  <td>{{comment[3]}}</td>
 	</tr>
 	{% endfor %}
       </table>
