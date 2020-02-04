@@ -24,6 +24,7 @@ def home():
 
     ftimes = api_interface.get_times_formatted()
     this_time, franks = api_interface.get_ranks_formatted(k, t)
+    
     return render_template('home.html',
                            backend=data.BACKEND,
                            times=ftimes,
@@ -46,12 +47,13 @@ def convo():
         print(f'got exception <{e}> while parsing arg id in /convo')
     # print(f'\twith id={i}')
         
-    conv, parent, children = api_interface.get_convo_formatted(i)
+    convo = api_interface.get_convo(i)
     return render_template('convo.html',
-                           convo=conv,
-                           parent=parent,
-                           children=children,
-                           id=i)
+                           convo=convo['convo'],
+                           parent=convo['parent'],
+                           children=convo['children'],
+                           id=convo['id'],
+                           post_name=convo['post_name'])
 
 
 @routes.route("/about")

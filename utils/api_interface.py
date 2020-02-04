@@ -14,6 +14,7 @@ def get_ranks(k,t):
 
 def get_ranks_formatted(k, t):
     rank_json = get_ranks(k,t)
+    print(f'requesting ranks returned {rank_json}')
     this_time = format_time(rank_json['when'])
     # print(rank_json['ranking'][0][1].split('/'))
     if rank_json['ranking'] == None:
@@ -42,9 +43,3 @@ def get_convo(i):
     print('recieved response')
     return r.json()
     
-def get_convo_formatted(i):
-    # todo
-    c = get_convo(i)
-    print(f'get convo {i} returned')
-    pprint(c)
-    return c['convo'], c['parent'], c['children']

@@ -55,9 +55,9 @@
 	{% for rank in ranks %}
 	<tr>
 	      <th scope="row">{{ loop.index  }}</th>
-	      <td>{{ rank[0] | round(3) }}</td>
+	      <td>{{ rank[0] }}</td>
 	      <td><a href="{{ url_for('routes.convo', id=rank[1]) }}" style="stretched-link">{{ rank[1] }}</a></td>
-	      <td>n/a</td>
+	      <td>{{ rank[2] }}</td>
 	</tr>
 	{% endfor %}
       </table>
