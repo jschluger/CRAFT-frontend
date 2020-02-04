@@ -55,7 +55,13 @@
 	{% for rank in ranks %}
 	<tr>
 	      <th scope="row">{{ loop.index  }}</th>
-	      <td>{{ rank[0] }}</td>
+	      <td
+		{% if rank[0] > 0.548580 %}
+		style="background: red"
+		{% endif %} >
+
+		{{ rank[0] | round(3) }}
+	      </td>
 	      <td><a href="{{ url_for('routes.convo', id=rank[1]) }}" style="stretched-link">{{ rank[1] }}</a></td>
 	      <td>{{ rank[2] }}</td>
 	</tr>

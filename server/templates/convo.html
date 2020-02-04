@@ -17,7 +17,7 @@
       <ul>
 	{% for child in children %}
 	<li><a href="{{ url_for('routes.convo', id=child) }}">{{ child }}</a></li>
-	 {% endfor %}
+	{% endfor %}
       </ul>
     </div>
     <div class="col">
@@ -34,8 +34,14 @@
 	{% for comment in convo %}
 	<tr>
 	  <td>{{comment[1]}}</td>
-	  <td>{{ loop.index  }}</th>
-	  <td>{{ comment[2] | round(3) }}</td>
+	  <th>{{ loop.index  }}</th>
+	  <td
+	    {% if comment[2] > 0.548580 %}
+	    style="background: red"
+	    {% endif %} >
+
+	    {{ comment[2] | round(3) }}
+	  </td>
 	  <td>n/a</td>
 	  <td><a href="http://reddit.com{{comment[4]}}" target="_blank">{{comment[0]}}</a></td>
 	  <td>{{comment[3]}}</td>
