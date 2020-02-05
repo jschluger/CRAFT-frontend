@@ -3,7 +3,10 @@ from datetime import datetime
 from pprint import pprint
 
 def format_time(t):
-    return datetime.utcfromtimestamp(t).strftime("%I:%M:%S %p on %b %-d, %Y UTC")
+    if t==-1:
+        return "Live"
+    else:
+        return datetime.utcfromtimestamp(t).strftime("%I:%M:%S %p on %b %-d, %Y UTC")
 
 def get_ranks(k,t):
     args = {'k': k}

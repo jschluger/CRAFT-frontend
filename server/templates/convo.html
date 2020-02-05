@@ -25,16 +25,15 @@
 	<h3>Convo {{ id }} on post "{{post_name}}"</h3>
 	<tr>
 	  <th scope="col">Time</th>
-	  <th scope="col">Number of Comments</th>
+	  <th scope="col">Author</th>
 	  <th scope="col">Craft Score</th>
-	  <th scope="col">Prediction</th>
-	  <th scope="col">Link to End of Convo</th>
-	  <th scope="col">Link to Predicted Derailer</th>
+	  <th scope="col">Link</th>
+	  <th scope="col">Text</th>
 	</tr>
 	{% for comment in convo %}
 	<tr>
 	  <td>{{comment[1]}}</td>
-	  <th>{{ loop.index  }}</th>
+	  <th>{{ comment[5]  }}</th>
 	  <td
 	    {% if comment[2] > 0.548580 %}
 	    style="background: red"
@@ -42,7 +41,6 @@
 
 	    {{ comment[2] | round(3) }}
 	  </td>
-	  <td>n/a</td>
 	  <td><a href="http://reddit.com{{comment[4]}}" target="_blank">{{comment[0]}}</a></td>
 	  <td>{{comment[3]}}</td>
 	</tr>

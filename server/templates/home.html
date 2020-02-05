@@ -19,8 +19,14 @@
 	  </div>
 	  <div class="col">
 	    <select class="form-control" id="exampleFormControlSelect2" name="t" value="0">
+	      <option value="-1">Live</option>
 	      {% for time in times %}
-	      <option value="{{ time[0] }}">{{ time[1] }}</option>
+	      <option value="{{ time[0] }}"
+		      {% if time[1]==this_time %}
+		      selected="selected"
+		      {% endif %}
+		      >
+		{{ time[1] }}</option>
 	      {% endfor %}
 	    </select>
 	  </div>
