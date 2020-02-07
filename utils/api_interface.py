@@ -3,7 +3,9 @@ from datetime import datetime
 from pprint import pprint
 
 def format_time(t):
-    if t==-1:
+    if type(t) != int:
+        return t
+    elif t==-1:
         return "Live"
     else:
         return datetime.utcfromtimestamp(t).strftime("%I:%M:%S %p on %b %-d, %Y UTC")
@@ -28,14 +30,7 @@ def get_ranks_formatted(k, t):
 
 def get_times():
     r = requests.post(data.BACKEND+'/viewtimes')
-    return r.json()
-
-def get_times_formatted():
-    times = get_times()['times']
-    formatted = list(map(lambda t: (t, format_time(t)), times))
-
-    return formatted[::-1]
-    
+    return r.json()    
 
 def get_convo(i):
     args = {'id': i}

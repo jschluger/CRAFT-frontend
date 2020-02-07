@@ -14,12 +14,12 @@
 	<select class="form-control" id="exampleFormControlSelect2" name="t" value="0">
 	  <option value="-1">Live</option>
 	  {% for time in times %}
-	  <option value="{{ time[0] }}"
-		    {% if time[1]==this_time %}
+	  <option value="{{ time }}"
+		    {% if time==this_time %}
 		  selected="selected"
 		  {% endif %}
 		  >
-	    {{ time[1] }}</option>
+	    {{ format_time(time) }}</option>
 	    {% endfor %}
 	</select>
       </div>
@@ -35,7 +35,7 @@
   <br>
   <div class="row">
     <table class="table table-striped table-hover">
-      <h3>Top {{ k }} most likely to derail conversations at {{ this_time }}:</h3>
+      <h3>Top {{ k }} most likely to derail conversations at {{ format_time(this_time) }}:</h3>
       <tr>
 	<th scope="col">Rank</th>
 	<th scope="col">CRAFT Score</th>

@@ -22,14 +22,14 @@ def home():
     except Exception as e:
         print(f'got exception <{e}> while parsing arg k in /')
 
-    ftimes = api_interface.get_times_formatted()
-    this_time, franks = api_interface.get_ranks_formatted(k, t)
-    
+    times = api_interface.get_times()
+    ranks = api_interface.get_ranks(k, t)
+
     return render_template('home.html',
                            backend=data.BACKEND,
-                           times=ftimes,
-                           ranks=franks,
-                           this_time=this_time,
+                           times=times['times'],
+                           ranks=ranks['ranking'],
+                           this_time=ranks['when'],
                            k=k)
 
 
@@ -65,4 +65,4 @@ def about():
 
 @routes.context_processor
 def base_data():
-    return dict(craft_thresh=0.548580, arrow_thresh=.2)
+    return dict(craft_thresh=0.548580, arrow_thresh=.2, format_time=api_interface.format_time)
