@@ -62,3 +62,7 @@ def about():
     The about this project page. 
     """
     return render_template('about.html')
+
+@routes.context_processor
+def base_data():
+    return dict(craft_thresh=0.548580, arrow_thresh=.2)

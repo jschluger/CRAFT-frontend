@@ -17,15 +17,13 @@ def get_ranks(k,t):
 
 def get_ranks_formatted(k, t):
     rank_json = get_ranks(k,t)
-    print(f'requesting ranks returned {rank_json}')
+    # print(f'requesting ranks returned {rank_json}')
     this_time = format_time(rank_json['when'])
     # print(rank_json['ranking'][0][1].split('/'))
     if rank_json['ranking'] == None:
         franks = []
     else:
-        franks = list(map(lambda tup: # tup = (score, link)
-                      (tup[0], tup[1], "/".join(tup[1].split("/")[-3:])),
-                      rank_json['ranking'] ))
+        franks = rank_json['ranking']
     return this_time, franks
 
 def get_times():
@@ -41,8 +39,8 @@ def get_times_formatted():
 
 def get_convo(i):
     args = {'id': i}
-    print(f'making backend request for convo {i}')
+    # print(f'making backend request for convo {i}')
     r = requests.post(data.BACKEND+'/viewconvo', data=args)
-    print('recieved response')
+    # print('recieved response')
     return r.json()
     
