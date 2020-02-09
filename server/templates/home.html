@@ -39,8 +39,9 @@
       <tr>
 	<th scope="col">Rank</th>
 	<th scope="col">CRAFT Score</th>
-	<th scope="col">Identifier</th>
 	<th scope="col">Score Change</th>
+	<th scope="col">Number of Comments</th>
+	<th scope="col">Conversation Page</th>
       </tr>
       {% for rank in ranks %}
       <tr>
@@ -52,7 +53,6 @@
 	  
 	  {{ rank[0] | round(3) }}
 	</td>
-	<td><a href="{{ url_for('routes.convo', id=rank[1]) }}" style="stretched-link">{{ rank[1] }}</a></td>
 	<td>
 	  {% if rank[2] > arrow_thresh %}
 	  <span style="color:red; font-size:200%">&#10138;</span>
@@ -67,6 +67,8 @@
 	  {% endif %}
 	  <!-- {{ rank[2] | round(3) }} -->
 	</td>
+	<td>{{ rank[3] }}</td>
+	<td><a href="{{ url_for('routes.convo', id=rank[1]) }}" style="stretched-link">{{ rank[1] }}</a></td>
       </tr>
       {% endfor %}
     </table>

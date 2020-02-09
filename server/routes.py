@@ -27,7 +27,7 @@ def home():
 
     return render_template('home.html',
                            backend=data.BACKEND,
-                           times=times['times'],
+                           times=times['times'][::-1],
                            ranks=ranks['ranking'],
                            this_time=ranks['when'],
                            k=k)
@@ -53,7 +53,8 @@ def convo():
                            parent=convo['parent'],
                            children=convo['children'],
                            id=convo['id'],
-                           post_name=convo['post_name'])
+                           post_name=convo['post_name'],
+                           post_author=convo['post_author'])
 
 
 @routes.route("/about")

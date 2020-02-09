@@ -3,7 +3,7 @@ from datetime import datetime
 from pprint import pprint
 
 def format_time(t):
-    if type(t) != int:
+    if type(t) != int and type(t) != float:
         return t
     elif t==-1:
         return "Live"
