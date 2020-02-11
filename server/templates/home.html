@@ -41,10 +41,10 @@
 	<th scope="col">CRAFT Score</th>
 	<th scope="col">Score Change</th>
 	<th scope="col">Number of Comments</th>
-	<th scope="col">Conversation Page</th>
+	<th scope="col">Post Name</th>
       </tr>
       {% for rank in ranks %}
-      <tr>
+      <tr class="clickable-row" data-href="{{ url_for('routes.convo', id=rank[1]) }}" style="cursor: pointer">
 	<th scope="row">{{ loop.index  }}</th>
 	<td
 	  {% if rank[0] > craft_thresh %}
@@ -68,12 +68,13 @@
 	  <!-- {{ rank[2] | round(3) }} -->
 	</td>
 	<td>{{ rank[3] }}</td>
-	<td><a href="{{ url_for('routes.convo', id=rank[1]) }}" style="stretched-link">{{ rank[1] }}</a></td>
+	<td>{{ rank[4] }}</td>
       </tr>
       {% endfor %}
     </table>
   </div>
 </div>
+
 
 
 {% endblock %}

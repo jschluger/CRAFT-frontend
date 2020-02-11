@@ -19,7 +19,7 @@
 
       <th scope="col">Reddit Link</th>
       <th scope="col">Text</th>
-      <th scope="col">Alternate Paths</th>
+      <th scope="col">Alternate Endings</th>
     </tr>
     {% for comment in convo %}
     <tr>
@@ -41,21 +41,24 @@
       <td><a href="http://reddit.com{{comment[4]}}" target="_blank">{{comment[0]}}</a></td>
       <td>{{comment[3]}}</td>
       <td><ul>
-	  {% for child in comment[7] %}
-	  <li><a href="{{ url_for('routes.convo', id=child) }}" style="stretched-link">{{ child }}</a></li>
+	  {% for ending in comment[7] %}
+	  {% if ending != id %}
+	  <li><a href="{{ url_for('routes.convo', id=ending) }}" style="stretched-link">{{ ending }}</a></li>
+	  {% endif %}
 	  {% endfor %}
       </ul></td>
     </tr>
     {% endfor %}
   </table>
-  {% if children | length > 0 %}
-  There have been {{ children | length }} replys to this conversation.
+  {% if endings | length > 0 %}
+  This conversation ends in {{ endings | length }} ways:
   <ul>
-    {% for child in children %}
-    <li><a href="{{ url_for('routes.convo', id=child) }}" style="stretched-link">{{ child }}</a></li>
+    {% for ending in endings %}
+    <li><a href="{{ url_for('routes.convo', id=ending) }}" style="stretched-link">{{ ending }}</a></li>
     {% endfor %}
   </ul>
   {% endif %}
 </div>  
 
 {% endblock %}
+

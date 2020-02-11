@@ -51,7 +51,7 @@ def convo():
     return render_template('convo.html',
                            convo=convo['convo'],
                            parent=convo['parent'],
-                           children=convo['children'],
+                           endings=convo['endings'],
                            id=convo['id'],
                            post_name=convo['post_name'],
                            post_author=convo['post_author'])

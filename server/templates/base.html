@@ -13,11 +13,21 @@
   <!-- Bootstrap core CSS -->
   <link href="{{ url_for('static',filename='startbootstrap-bare-gh-pages/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ url_for('static',filename='mystyle/style.css') }}" rel="stylesheet">
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  
 </head>
 
 <body>
-
+  <!-- credit to https://stackoverflow.com/questions/17147821/how-to-make-a-whole-row-in-a-table-clickable-as-a-link for solution -->
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+	$(".clickable-row").click(function() {
+	    console.log("fuck");
+	    window.location = $(this).data("href");
+	});
+    });
+  </script>
+  
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark static-top" style="background-color:#a8050e;">
     <div class="container">
