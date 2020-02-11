@@ -48,6 +48,9 @@ def convo():
     # print(f'\twith id={i}')
         
     convo = api_interface.get_convo(i)
+    for c in convo['convo']:
+        c[3] = c[3].split('\n')
+    
     return render_template('convo.html',
                            convo=convo['convo'],
                            parent=convo['parent'],

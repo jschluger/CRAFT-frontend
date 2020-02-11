@@ -33,13 +33,19 @@
 	{{ comment[2] | round(3) }}
       </td>
       <td
-	{% if comment[6] %}
-	style="background: red"
-	{% endif %} >
-	{{ comment[6] }}
+	{% if comment[6] > 0 %}
+	style="background: red">
+	{{ format_time(comment[6]) }}
+	{% else %}
+	> No
+	{% endif %}
       </td>
       <td><a href="http://reddit.com{{comment[4]}}" target="_blank">{{comment[0]}}</a></td>
-      <td>{{comment[3]}}</td>
+      <td>
+	{% for p in comment[3] %}
+	<p>{{ p }} </p>
+	{% endfor %}
+      </td>
       <td><ul>
 	  {% for ending in comment[7] %}
 	  {% if ending != id %}
