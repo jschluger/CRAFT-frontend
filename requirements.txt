@@ -1,1 +1,4 @@
-flask
+Flask==1.1.1
+Jinja2==2.10.1
+requests==2.22.0
+gevent==1.4.0

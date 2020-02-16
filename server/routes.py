@@ -24,7 +24,10 @@ def home():
 
     times = api_interface.get_times()
     ranks = api_interface.get_ranks(k, t)
-
+    
+    if 'internal_error' in times or 'internal_error' in ranks:
+        return render_template('error.html')
+    
     return render_template('home.html',
                            backend=data.BACKEND,
                            times=times['times'][::-1],
@@ -48,6 +51,8 @@ def convo():
     # print(f'\twith id={i}')
         
     convo = api_interface.get_convo(i)
+    if 'internal_error' in convo:
+        return render_template('error.html')
     for c in convo['convo']:
         c[3] = c[3].split('\n')
     
