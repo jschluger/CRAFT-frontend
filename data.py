@@ -3,7 +3,7 @@
 ################################################################## 
 
 # BACKEND is the location of the server implementing CRAFT-backend API. 
-BACKEND = 'http://0.0.0.0:8080'
+BACKEND = 'http://127.0.0.1:8080'
 
 # k is the default number of ranked conversations to display when front end is first loaded
 k = 50
