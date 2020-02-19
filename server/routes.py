@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template
+from flask import Blueprint, request, render_template, abort
 import time, json, data
 from utils import api_interface
 
@@ -26,7 +26,7 @@ def home():
     ranks = api_interface.get_ranks(k, t)
     
     if 'internal_error' in times or 'internal_error' in ranks:
-        return render_template('error.html')
+        abort(500)
     
     return render_template('home.html',
                            backend=data.BACKEND,
@@ -52,7 +52,7 @@ def convo():
         
     convo = api_interface.get_convo(i)
     if 'internal_error' in convo:
-        return render_template('error.html')
+        abort(500)
     for c in convo['convo']:
         c[3] = c[3].split('\n')
     
@@ -65,6 +65,11 @@ def convo():
                            post_author=convo['post_author'])
 
 
+@routes.errorhandler(500)
+def err(e):
+    return render_template('error.html')
+
+
 @routes.route("/about")
 def about():
     """
@@ -75,3 +80,4 @@ def about():
 @routes.context_processor
 def base_data():
     return dict(craft_thresh=0.548580, arrow_thresh=.2, format_time=api_interface.format_time)
+
