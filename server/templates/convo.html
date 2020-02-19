@@ -37,7 +37,8 @@
       <td><a href="http://reddit.com{{comment[4]}}" target="_blank">{{comment[0]}}</a></td>
       <td>
 	{% for p in comment[3] %}
-	<p style="word-break:break-all">{{ p }} </p>
+	<!-- <p style="word-break:break-all">{{ p }} </p> -->
+	<p style="overflow-wrap: break-word;;">{{ p }} </p>
 	{% endfor %}
       </td>
       <td><ul>
