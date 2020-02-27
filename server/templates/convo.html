@@ -30,6 +30,11 @@
 	{% if comment[6] > 0 %}
 	style="background: red">
 	{{ format_time(comment[6]) }}
+	
+	{% elif comment[3] == ["[removed]"] %}
+	style="background: red">
+	Yes
+
 	{% else %}
 	> No
 	{% endif %}
