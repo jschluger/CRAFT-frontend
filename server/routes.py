@@ -64,7 +64,8 @@ def convo():
                            endings=convo['endings'],
                            id=convo['id'],
                            post_name=convo['post_name'],
-                           post_author=convo['post_author'])
+                           post_author=convo['post_author'],
+                           score_pos=1)
 
 
 @routes.errorhandler(500)

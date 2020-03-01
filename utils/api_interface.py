@@ -8,12 +8,11 @@ def format_time(t):
     elif t==-1:
         return "Live"
     else:
-        return datetime.utcfromtimestamp(t).strftime("%I:%M:%S %p on %b %-d, %Y UTC")
+        return datetime.utcfromtimestamp(t).strftime("%I:%M %p; %b %-d, %Y UTC")
 
 def format_duration(t):
     if type(t) != int and type(t) != float:
         return t
-    print(f'formating duration {t}')
     t = int(t)
     s = ''
     if t >= data.SEC_PER_DAY:

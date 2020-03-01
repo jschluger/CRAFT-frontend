@@ -28,70 +28,20 @@
   </div>
   <br>
   <div class="row" style="width: 100%">
-    <p>Viewing conversations in the {{ format_duration(duration) }} before {{ format_time(this_time) }}. </p>
+    <p>Viewing conversations in the {{ format_duration(duration) }} before <b>{{ format_time(this_time) }}</b>. </p>
   </div>
   <div class="row" style="width: 100%">
-    <p>{{ distrib[0] }} / {{ distrib[1] }} conversations predicted to derail
+    <p>
+      <span style="color:red;">{{ distrib[0] }}</span>
+      / <span style="color:blue;">{{ distrib[1] }}</span>
+      conversations predicted to derail
       {% if distrib[1] > 0 %}
-      ({{ (distrib[0] / distrib[1] * 100) | round(2) }} %).
+      <b>({{ (distrib[0] / distrib[1] * 100) | round(2) }} %) </b>
       {% endif %}
     </p>
   </div>
   <div class="row" style="width: 100%">
-    <table class="table table-striped table-hover">
-      <h3>Top {{ k }} most likely to derail conversations:</h3>
-      {% if this_time != -1 %}
-      <tr>
-	<th colspan="5" scope="col">At {{ format_time(this_time) }}</th>
-	<th colspan="5" scope="col">Since {{ format_time(this_time) }}</th>
-      </tr>
-      {% endif %}
-      <tr>
-	<th scope="col">Rank</th>
-	<th scope="col">CRAFT Score</th>
-	<th scope="col">Score Change</th>
-	<th scope="col">Number of Comments</th>
-	<th scope="col">Post Name</th>
-	{% if this_time != -1 %}
-	<th scope="col">Number of New Comments</th>
-	<th scope="col">Has the conversation derailed?</th>
-	<th scope="col">Still Active?</th>
-	{% endif %}
-      </tr>
-      {% for rank in ranks %}
-      <tr class="clickable-row" data-href="{{ url_for('routes.convo', id=rank[1]) }}" style="cursor: pointer">
-	<th scope="row">{{ loop.index  }}</th>
-	<td
-	  {% if rank[0] > craft_thresh %}
-	  style="background: red"
-	  {% endif %} >
-	  
-	  {{ rank[0] | round(3) }}
-	</td>
-	<td>
-	  {% if rank[2] > arrow_thresh %}
-	  <span style="color:red; font-size:200%">&#10138;</span>
-	  {% elif rank[2] > 0 %}
-	  <span style="color:red">&#10138;</span>
-	  {% elif rank[2] == 0 %}
-	  <span style="color:yellow">&#10137;</span>
-	  {% elif rank[2] > - arrow_thresh %}
-	  <span style="color:green">&#10136;</span>
-	  {% else %}
-	  <span style="color:green; font-size:200%">&#10136;</span>
-	  {% endif %}
-	  <!-- {{ rank[2] | round(3) }} -->
-	</td>
-	<td>{{ rank[3] }}</td>
-	<td>{{ rank[4] }}</td>
-	{% if this_time != -1 %}
-	<td>{{ rank[5] }}</td>
-	<td>{{ rank[6] }}</td>
-	<td>{{ rank[7] }}</td>
-	{% endif %}
-      </tr>
-      {% endfor %}
-    </table>
+    {% include 'home_table.html' %}
   </div>
 </div>
 
