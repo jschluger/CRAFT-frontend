@@ -33,6 +33,8 @@ def home():
                            times=times['times'][::-1],
                            ranks=ranks['ranking'],
                            this_time=ranks['when'],
+                           distrib=ranks['distrib'],
+                           duration=ranks['duration'],
                            k=k)
 
 
@@ -79,5 +81,8 @@ def about():
 
 @routes.context_processor
 def base_data():
-    return dict(craft_thresh=0.548580, arrow_thresh=.2, format_time=api_interface.format_time)
+    return dict(craft_thresh=0.548580,
+                arrow_thresh=.2,
+                format_time=api_interface.format_time,
+                format_duration=api_interface.format_duration)
 

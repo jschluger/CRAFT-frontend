@@ -12,3 +12,6 @@ k = 50
 # data & data structures needed for application, Do Not Modify
 ##############################################################
 # args = None # will become the command line arguments
+
+SEC_PER_HOUR = 60 * 60
+SEC_PER_DAY  = SEC_PER_HOUR * 24

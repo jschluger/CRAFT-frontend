@@ -5,12 +5,13 @@ import data
 from server import app
 
 # parse command line arguments
-# import argparse
-# parser = argparse.ArgumentParser()
-# parser.add_argument('--backend', default='http://0.0.0.0:8080',
-#     help='The full address and port of the CRAFT_backend server')
-# args = parser.parse_args()
-# data.BACKEND = args.backend
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument('--dev', default=False, action='store_true',
+    help='Configure the ip address of the backend for development.')
+args = parser.parse_args()
+if args.dev:
+    data.BACKEND = 'http://0.0.0.0:8080'
 
 from gevent import pywsgi
 

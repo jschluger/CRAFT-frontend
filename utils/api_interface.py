@@ -10,6 +10,29 @@ def format_time(t):
     else:
         return datetime.utcfromtimestamp(t).strftime("%I:%M:%S %p on %b %-d, %Y UTC")
 
+def format_duration(t):
+    if type(t) != int and type(t) != float:
+        return t
+    print(f'formating duration {t}')
+    t = int(t)
+    s = ''
+    if t >= data.SEC_PER_DAY:
+        n = t // data.SEC_PER_DAY
+        s += f'{n} Day{"s" if n > 1 else ""} '
+        t %= data.SEC_PER_DAY
+        
+    if t >= data.SEC_PER_HOUR:
+        n = t // data.SEC_PER_HOUR
+        s += f'{n} Hour{"s" if n > 1 else ""} '
+        t %= data.SEC_PER_HOUR
+        
+    if t >= 60:
+        n = t // 60
+        s += f'{n} Minute{"s" if n > 1 else ""}'
+
+    return s
+
+    
 def get_ranks(k,t):
     r = {'internal_error': True} # default
     args = {'k': k}

@@ -28,14 +28,35 @@
   </div>
   <br>
   <div class="row" style="width: 100%">
+    <p>Viewing conversations in the {{ format_duration(duration) }} before {{ format_time(this_time) }}. </p>
+  </div>
+  <div class="row" style="width: 100%">
+    <p>{{ distrib[0] }} / {{ distrib[1] }} conversations predicted to derail
+      {% if distrib[1] > 0 %}
+      ({{ (distrib[0] / distrib[1] * 100) | round(2) }} %).
+      {% endif %}
+    </p>
+  </div>
+  <div class="row" style="width: 100%">
     <table class="table table-striped table-hover">
-      <h3>Top {{ k }} most likely to derail conversations at {{ format_time(this_time) }}:</h3>
+      <h3>Top {{ k }} most likely to derail conversations:</h3>
+      {% if this_time != -1 %}
+      <tr>
+	<th colspan="5" scope="col">At {{ format_time(this_time) }}</th>
+	<th colspan="5" scope="col">Since {{ format_time(this_time) }}</th>
+      </tr>
+      {% endif %}
       <tr>
 	<th scope="col">Rank</th>
 	<th scope="col">CRAFT Score</th>
 	<th scope="col">Score Change</th>
 	<th scope="col">Number of Comments</th>
 	<th scope="col">Post Name</th>
+	{% if this_time != -1 %}
+	<th scope="col">Number of New Comments</th>
+	<th scope="col">Has the conversation derailed?</th>
+	<th scope="col">Still Active?</th>
+	{% endif %}
       </tr>
       {% for rank in ranks %}
       <tr class="clickable-row" data-href="{{ url_for('routes.convo', id=rank[1]) }}" style="cursor: pointer">
@@ -63,6 +84,11 @@
 	</td>
 	<td>{{ rank[3] }}</td>
 	<td>{{ rank[4] }}</td>
+	{% if this_time != -1 %}
+	<td>{{ rank[5] }}</td>
+	<td>{{ rank[6] }}</td>
+	<td>{{ rank[7] }}</td>
+	{% endif %}
       </tr>
       {% endfor %}
     </table>
