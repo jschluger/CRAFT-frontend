@@ -1,6 +1,7 @@
-from flask import Blueprint, request, render_template, abort
+from flask import Blueprint, request, render_template, abort, make_response
 import time, json, data
 from utils import api_interface
+from pprint import pprint
 
 routes = Blueprint('routes', __name__)
 
@@ -50,23 +51,51 @@ def convo():
             i = request.args['id']
     except Exception as e:
         print(f'got exception <{e}> while parsing arg id in /convo')
-    # print(f'\twith id={i}')
+        
+    update_score_pos=None
+    try:
+        if 'update_score_pos' in request.args:
+            update_score_pos = int(request.args['update_score_pos'])
+    except Exception as e:
+        print(f'got exception <{e}> while parsing arg update_score_pos in /convo')
         
     convo = api_interface.get_convo(i)
     if 'internal_error' in convo:
         abort(500)
     for c in convo['convo']:
         c[3] = c[3].split('\n')
-    
-    return render_template('convo.html',
-                           convo=convo['convo'],
-                           parent=convo['parent'],
-                           endings=convo['endings'],
-                           id=convo['id'],
-                           post_name=convo['post_name'],
-                           post_author=convo['post_author'],
-                           score_pos=1)
 
+
+    score_pos = 1 # initalize to interstitial display if cookie is not set
+    if update_score_pos != None:
+        score_pos = update_score_pos
+    elif 'score_pos' in request.cookies:
+        score_pos = int(request.cookies['score_pos'])
+        
+    assert type(score_pos)==int
+    print(f'rendering convo with score_pos={score_pos}')
+
+    # If displaying next to prediction, need to shift scores down a row because backend sends scores
+    # associated with last comment in the context. 
+    if score_pos == 0:
+        for idx in range(1, len(convo['convo']))[::-1]:
+            convo['convo'][idx][2] = convo['convo'][idx-1][2]
+        convo['convo'][0][2] = 0
+    
+    resp = make_response( render_template('convo.html',
+                                          convo=convo['convo'],
+                                          parent=convo['parent'],
+                                          endings=convo['endings'],
+                                          id=convo['id'],
+                                          post_name=convo['post_name'],
+                                          post_author=convo['post_author'],
+                                          score_pos=score_pos) )
+    
+    print(f'cookies was {request.cookies}')
+    if update_score_pos != None or 'score_pos' not in request.cookies:
+        print(f'update_score_pos = {update_score_pos} ... setting score_pos cookie to {score_pos}')
+        resp.set_cookie('score_pos', str(score_pos))
+    return resp
 
 @routes.errorhandler(500)
 def err(e):
@@ -85,5 +114,6 @@ def base_data():
     return dict(craft_thresh=0.548580,
                 arrow_thresh=.2,
                 format_time=api_interface.format_time,
-                format_duration=api_interface.format_duration)
+                format_duration=api_interface.format_duration,
+                now=time.time())
 

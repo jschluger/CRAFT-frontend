@@ -11,17 +11,6 @@
   </tr>
   {% for comment in convo %}
   <tr>
-    <td colspan="2"></td>
-    <td
-      {% if comment[2] > craft_thresh %}
-      style="background: red"
-      {% endif %} >
-      
-      {{ comment[2] | round(3) }}
-    </td>
-    <td colspan="4" </td>
-  </tr>
-  <tr>
     <td>{{ format_time(comment[1]) }}</td>
     <th>{{ comment[5]  }}</th>
     <td> </td>
@@ -52,6 +41,17 @@
 	{% endif %}
 	{% endfor %}
     </ul></td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+    <td
+      {% if comment[2] > craft_thresh %}
+      style="background: red"
+      {% endif %} >
+      
+      {{ comment[2] | round(3) }}
+    </td>
+    <td colspan="4" </td>
   </tr>
   {% endfor %}
 </table>

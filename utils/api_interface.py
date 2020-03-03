@@ -29,7 +29,7 @@ def format_duration(t):
         n = t // 60
         s += f'{n} Minute{"s" if n > 1 else ""}'
 
-    return s
+    return 'seconds' if s=='' else s
 
     
 def get_ranks(k,t):

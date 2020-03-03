@@ -1,22 +1,54 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container" style="padding-top:10px; width:100%">
-  <h3>Post Title: "{{post_name}}"</h3>
-  <h4>By: {{post_author}}</h4>
-  {% if score_pos == 1 %}
+  <div class="row">
+    <h3>Post Title: "{{post_name}}"</h3>
+  </div>
+  <div class="row">
+    <h4>By: {{post_author}}</h4>
+  </div>
+  <div class="row">
+    <form class="form-inline">
+      <label for="scores">Where to display CRAFT scores:</label>
+      <div class="col">
+	<select class="form-control" id="exampleFormControlSelect2" name="update_score_pos" value="1">
+	  <option value="2"
+		  {% if score_pos == 2 %}
+		  selected="selected"
+		  {% endif %}
+		  >Next to context</option>
+	  <option value="1"
+		  {% if score_pos == 1 %}
+		  selected="selected"
+		  {% endif %}
+		  >Interstitially</option>
+	  <option value="0"
+		  {% if score_pos == 0 %}
+		  selected="selected"
+		  {% endif %}
+		  >Next to prediction</option>
+	  
+	</select>
+      </div>
+      <input type="hidden" name="id" value="{{ id }}">
+      <div class="col">
+	<button type="submit" class="btn btn-primary float-right" action="#" method="get">Update</button>
+      </div>
+    </form>
+  </div>
+  <br>
+  <div class="row">
+    {% if score_pos == 1 %}
+    
+    {% include 'convo_table_inter.html' %}
+    
+    {% else %}
+    
+    {% include 'convo_table_inline.html' %}
+    
+    {% endif %}
+  </div>
   
-  {% include 'convo_table1.html' %}
-  
-  {% elif score_pos == 2 %}
-  
-  {% include 'convo_table2.html' %}
-  
-  {% else %}
-  
-  {% include 'convo_table0.html' %}
-  
-  {% endif %}
-
   {% if endings | length > 0 %}
   This conversation ends in {{ endings | length }} ways:
   <ul>
