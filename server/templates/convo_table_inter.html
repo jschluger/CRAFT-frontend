@@ -7,19 +7,19 @@
 
     <th scope="col">Reddit Link</th>
     <th scope="col" style="width:40%">Text</th>
-    <th scope="col">Alternate Endings</th>
+    <!-- <th scope="col">Alternate Endings</th> -->
   </tr>
   {% for comment in convo %}
   <tr>
-    <td>{{ format_time(comment[1]) }}</td>
-    <th>{{ comment[5]  }}</th>
+    <td>{{ format_time(comment['timestamp']) }}</td>
+    <th>{{ comment['author']  }}</th>
     <td> </td>
     <td
-      {% if comment[6] > 0 %}
+      {% if comment['removed'] > 0 %}
       style="background: red">
-      {{ format_time(comment[6]) }}
+      {{ format_time(comment['removed']) }}
       
-      {% elif comment[3] == ["[removed]"] %}
+      {% elif comment['text'] == ["[removed]"] %}
       style="background: red">
       Yes
 
@@ -27,29 +27,28 @@
       > No
       {% endif %}
     </td>
-    <td><a href="http://reddit.com{{comment[4]}}" target="_blank">{{comment[0]}}</a></td>
+    <td><a href="http://reddit.com{{comment['permalink']}}" target="_blank">{{comment['id']}}</a></td>
     <td>
-      {% for p in comment[3] %}
-      <!-- <p style="word-break:break-all">{{ p }} </p> -->
+      {% for p in comment['text'] %}
       <p style="word-break:break-word;">{{ p }} </p>
       {% endfor %}
     </td>
-    <td><ul>
-	{% for ending in comment[7] %}
-	{% if ending != id %}
-	<li><a href="{{ url_for('routes.convo', id=ending) }}" style="stretched-link">{{ ending }}</a></li>
-	{% endif %}
-	{% endfor %}
-    </ul></td>
+    <!-- <td><ul> -->
+    <!-- 	{% for ending in comment['endings'] %} -->
+    <!-- 	{% if ending['id'] != id %} -->
+    <!-- 	<li><a href="{{ url_for('routes.convo', id=ending['id']) }}" style="stretched-link">{{ ending['convo_name'] }}</a></li> -->
+    <!-- 	{% endif %} -->
+    <!-- 	{% endfor %} -->
+    <!-- </ul></td> -->
   </tr>
   <tr>
     <td colspan="2"></td>
     <td
-      {% if comment[2] > craft_thresh %}
+      {% if comment['score'] > craft_thresh %}
       style="background: red"
       {% endif %} >
       
-      {{ comment[2] | round(3) }}
+      {{ comment['score'] | round(3) }}
     </td>
     <td colspan="4" </td>
   </tr>

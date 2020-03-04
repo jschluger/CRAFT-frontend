@@ -38,26 +38,26 @@ def get_ranks(k,t):
     if t is not None:
         args['t'] = t
     try:
-        r = requests.post(data.BACKEND+'/viewtop', data=args, timeout=1)
-    except requests.exceptions.ConnectionError as e:
-        print(f'\nfailed to request {data.BACKEND}/viewtop\n\tgot exception {e}')
+        r = requests.post(data.BACKEND+'/viewtop', data=args, timeout=5)
+    except Exception as e:
+        print(f'\nfailed to request {data.BACKEND}/viewtop\tat time {time.time()}\n\tgot exception {e}')
         return 
     return r if type(r)==dict else r.json()
 
 def get_times():
     r = {'internal_error': True} # default
     try:
-        r = requests.post(data.BACKEND+'/viewtimes', timeout=1)
-    except requests.exceptions.ConnectionError as e:
-        print(f'\nfailed to request {data.BACKEND}/viewtimes\n\tgot exception {e}')
+        r = requests.post(data.BACKEND+'/viewtimes', timeout=5)
+    except Exception as e:
+        print(f'\nfailed to request {data.BACKEND}/viewtimes\tat time {time.time()}\n\tgot exception {e}')
     return r if type(r)==dict else r.json()    
 
 def get_convo(i):
     r = {'internal_error': True} # default
     args = {'id': i}
     try:
-        r = requests.post(data.BACKEND+'/viewconvo', data=args, timeout=1)
-    except requests.exceptions.ConnectionError as e:
-        print(f'\nfailed to request {data.BACKEND}/viewconvo\n\tgot exception {e}')
+        r = requests.post(data.BACKEND+'/viewconvo', data=args, timeout=5)
+    except Exception as e:
+        print(f'\nfailed to request {data.BACKEND}/viewconvo\tat time {time.time()}\n\tgot exception {e}')
     return r if type(r)==dict else r.json()
     

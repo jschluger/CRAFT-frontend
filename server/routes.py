@@ -63,7 +63,7 @@ def convo():
     if 'internal_error' in convo:
         abort(500)
     for c in convo['convo']:
-        c[3] = c[3].split('\n')
+        c['text'] = c['text'].split('\n')
 
 
     score_pos = 1 # initalize to interstitial display if cookie is not set
@@ -72,28 +72,28 @@ def convo():
     elif 'score_pos' in request.cookies:
         score_pos = int(request.cookies['score_pos'])
         
-    assert type(score_pos)==int
-    print(f'rendering convo with score_pos={score_pos}')
+    # assert type(score_pos)==int
+    # print(f'rendering convo with score_pos={score_pos}')
 
     # If displaying next to prediction, need to shift scores down a row because backend sends scores
     # associated with last comment in the context. 
     if score_pos == 0:
         for idx in range(1, len(convo['convo']))[::-1]:
-            convo['convo'][idx][2] = convo['convo'][idx-1][2]
-        convo['convo'][0][2] = 0
+            convo['convo'][idx]['score'] = convo['convo'][idx-1]['score']
+        if len(convo['convo']) > 0:
+               convo['convo'][0]['score'] = 0
     
     resp = make_response( render_template('convo.html',
                                           convo=convo['convo'],
                                           parent=convo['parent'],
                                           endings=convo['endings'],
                                           id=convo['id'],
-                                          post_name=convo['post_name'],
+                                          convo_name=convo['convo_name'],
                                           post_author=convo['post_author'],
                                           score_pos=score_pos) )
     
-    print(f'cookies was {request.cookies}')
+    # print(f'cookies was {request.cookies}')
     if update_score_pos != None or 'score_pos' not in request.cookies:
-        print(f'update_score_pos = {update_score_pos} ... setting score_pos cookie to {score_pos}')
         resp.set_cookie('score_pos', str(score_pos))
     return resp
 

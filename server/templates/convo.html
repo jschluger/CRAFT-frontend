@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container" style="padding-top:10px; width:100%">
   <div class="row">
-    <h3>Post Title: "{{post_name}}"</h3>
+    <h3>Conversation: "{{convo_name}}"</h3>
   </div>
   <div class="row">
     <h4>By: {{post_author}}</h4>
@@ -53,7 +53,7 @@
   This conversation ends in {{ endings | length }} ways:
   <ul>
     {% for ending in endings %}
-    <li><a href="{{ url_for('routes.convo', id=ending) }}" style="stretched-link">{{ ending }}</a></li>
+    <li><a href="{{ url_for('routes.convo', id=ending['id']) }}" style="stretched-link">{{ ending['convo_name'] }}</a></li>
     {% endfor %}
   </ul>
   {% endif %}

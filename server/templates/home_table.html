@@ -11,7 +11,7 @@
     <th scope="col">CRAFT Score</th>
     <th scope="col">Score Change</th>
     <th scope="col">Number of Comments</th>
-    <th scope="col">Post Name</th>
+    <th scope="col">Conversation Name</th>
     {% if this_time != -1 %}
     <th scope="col">Number of New Comments</th>
     <th scope="col">Has the conversation derailed?</th>
@@ -19,35 +19,34 @@
     {% endif %}
   </tr>
   {% for rank in ranks %}
-  <tr class="clickable-row" data-href="{{ url_for('routes.convo', id=rank[1]) }}" style="cursor: pointer">
+  <tr class="clickable-row" data-href="{{ url_for('routes.convo', id=rank['id']) }}" style="cursor: pointer">
     <th scope="row">{{ loop.index  }}</th>
     <td
-      {% if rank[0] > craft_thresh %}
+      {% if rank['score'] > craft_thresh %}
       style="background: red"
       {% endif %} >
       
-      {{ rank[0] | round(3) }}
+      {{ rank['score'] | round(3) }}
     </td>
     <td>
-      {% if rank[2] > arrow_thresh %}
+      {% if rank['delta'] > arrow_thresh %}
       <span style="color:red; font-size:200%">&#10138;</span>
-      {% elif rank[2] > 0 %}
+      {% elif rank['delta'] > 0 %}
       <span style="color:red">&#10138;</span>
-      {% elif rank[2] == 0 %}
+      {% elif rank['delta'] == 0 %}
       <span style="color:yellow">&#10137;</span>
-      {% elif rank[2] > - arrow_thresh %}
+      {% elif rank['delta'] > - arrow_thresh %}
       <span style="color:green">&#10136;</span>
       {% else %}
       <span style="color:green; font-size:200%">&#10136;</span>
       {% endif %}
-      <!-- {{ rank[2] | round(3) }} -->
     </td>
-    <td>{{ rank[3] }}</td>
-    <td>{{ rank[4] }}</td>
+    <td>{{ rank['n_comments'] }}</td>
+    <td>{{ rank['convo_name'] }}</td>
     {% if this_time != -1 %}
-    <td>{{ rank[5] }}</td>
+    <td>{{ rank['n_new_comments'] }}</td>
     <td
-      {% if rank[6] %}
+      {% if rank['has_derailed'] %}
       style="background: red"
       > Yes
       {% else %}
@@ -55,7 +54,7 @@
       {% endif %}
     </td>
     <td
-      {% if rank[7] %}
+      {% if rank['still_active'] %}
       style="background: #4deb2a"
       > Yes
       {% else %}
