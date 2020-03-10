@@ -41,13 +41,13 @@
     <!-- 	{% endfor %} -->
     <!-- </ul></td> -->
   </tr>
-  <tr>
+  <tr
+    {% if comment['score'] > craft_thresh %}
+    style="background: red"
+    {% endif %}
+    >
     <td colspan="2"></td>
-    <td
-      {% if comment['score'] > craft_thresh %}
-      style="background: red"
-      {% endif %} >
-      
+    <td>
       {{ comment['score'] | round(3) }}
     </td>
     <td colspan="4" </td>

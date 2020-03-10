@@ -1,5 +1,5 @@
 <table class="table table-striped table-hover">
-  <h3>Top {{ k }} most likely to derail conversations:</h3>
+  <h3>Top {{ k }} conversations most likely to {{ derail }}:</h3>
   {% if this_time != -1 %}
   <tr>
     <th colspan="5" scope="col">At {{ format_time(this_time) }}</th>
@@ -14,8 +14,8 @@
     <th scope="col">Conversation Name</th>
     {% if this_time != -1 %}
     <th scope="col">Number of New Comments</th>
-    <th scope="col">Has the conversation derailed?</th>
-    <th scope="col">Still Active?</th>
+    <th scope="col">Has the conversation {{ derail }}?</th>
+    <th scope="col">Latest Activity</th>
     {% endif %}
   </tr>
   {% for rank in ranks %}
@@ -54,12 +54,11 @@
       {% endif %}
     </td>
     <td
-      {% if rank['still_active'] %}
+      {%  if still_active(rank['latest_activity']) %}
       style="background: #4deb2a"
-      > Yes
-      {% else %}
-      > No
       {% endif %}
+      >
+      {{ format_time(rank['latest_activity']) }}
     </td>
 
     {% endif %}

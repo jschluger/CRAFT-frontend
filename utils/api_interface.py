@@ -2,6 +2,10 @@ import requests, data, time
 from datetime import datetime
 from pprint import pprint
 
+def still_active(t):
+    now = time.time()
+    return now - t < data.SEC_PER_DAY
+
 def format_time(t):
     if type(t) != int and type(t) != float:
         return t

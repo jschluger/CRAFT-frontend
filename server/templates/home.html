@@ -34,7 +34,7 @@
     <p>
       <span style="color:red;">{{ distrib[0] }}</span>
       / <span style="color:blue;">{{ distrib[1] }}</span>
-      conversations predicted to derail
+      conversations predicted to {{ derail }}
       {% if distrib[1] > 0 %}
       <b>({{ (distrib[0] / distrib[1] * 100) | round(2) }} %) </b>
       {% endif %}

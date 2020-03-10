@@ -115,5 +115,7 @@ def base_data():
                 arrow_thresh=.2,
                 format_time=api_interface.format_time,
                 format_duration=api_interface.format_duration,
-                now=time.time())
+                still_active=api_interface.still_active,
+                now=time.time(),
+                derail=" become toxic")
 
