@@ -19,7 +19,7 @@
     {% endif %}
   </tr>
   {% for rank in ranks %}
-  <tr class="clickable-row" data-href="{{ url_for('routes.reddit_convo', id=rank['id']) }}" style="cursor: pointer">
+  <tr class="clickable-row" data-href="{{ url_for('routes.wiki_convo', id=rank['id']) }}" style="cursor: pointer">
     <th scope="row">{{ loop.index }}</th>
     <td {% if rank['score']> craft_thresh %}
       style="background: red"

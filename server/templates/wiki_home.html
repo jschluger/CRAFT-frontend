@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="padding-top:10px; width:100%">
+  <div class="row">
+    <form class="form-inline">
+      <label for="time">When:</label>
+      <div class="col">
+        <select class="form-control" id="exampleFormControlSelect2" name="t" value="0">
+          <option value="-1">Live</option>
+          {% for time in times %}
+          <option value="{{ time }}" {% if time==this_time %} selected="selected" {% endif %}>
+            {{ format_time(time) }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <label for="time">Number of posts:</label>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="{{ k }}" name="k" value="{{ k }}">
+      </div>
+      <div class="col">
+        <button type="submit" class="btn btn-primary float-right" action="#" method="get">Reload</button>
+      </div>
+    </form>
+  </div>
+  <br>
+  <div class="row" style="width: 100%">
+    <p>Viewing conversations in the {{ format_duration(duration) }} before <b>{{ format_time(this_time) }}</b>. </p>
+  </div>
+  <div class="row" style="width: 100%">
+    <p>
+      <span style="color:red;">{{ distrib[0] }}</span>
+      / <span style="color:blue;">{{ distrib[1] }}</span>
+      conversations predicted to derail
+      {% if distrib[1] > 0 %}
+      <b>({{ (distrib[0] / distrib[1] * 100) | round(2) }} %) </b>
+      {% endif %}
+    </p>
+  </div>
+  <div class="row" style="width: 100%">
+    {% include 'wiki_home_table.html' %}
+  </div>
+</div>
+
+
+
+{% endblock %}
